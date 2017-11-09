@@ -1,57 +1,42 @@
-# Project Name
+---
+services: cosmos-db
+platforms: python
+author: govindk
+---
 
-(short, 1-3 sentenced, description of the project)
+# Accessing Cassandra API on Cosmos Db using Python
+Azure Cosmos DB is Microsoft’s globally distributed multi-model database service. You can quickly create and query document, key/value, and graph databases, all of which benefit from the global distribution and horizontal scale capabilities at the core of Azure Cosmos DB.
 
-## Features
+This quickstart demonstrates how to write python samples and connect it to your  Cassandra API account.
 
-This project framework provides the following features:
+## Running this sample
+* Before you can run this sample, you must have the following perquisites:
+	* An active Azure Cassandra API account - If you don't have an account, refer to the  <fix> article.
+	* [Python 2.7]
+	* [Git](http://git-scm.com/).
+    * [Python Driver](https://github.com/datastax/python-driver)
 
-* Feature 1
-* Feature 2
-* ...
+1. Clone this repository using `git clone git@github.com:Azure-Samples/Azure-Samples/azure-cosmos-db-cassandra-python-getting-started.git cosmosdb`.
 
-## Getting Started
+2. Change directories to the repo using `cd cosmosdb`
 
-### Prerequisites
+3. Next, substitute the contactPoint, username, password  in `config.py` with your Cosmos DB account's values from connectionstring panel of the portal.
 
-(ideally very short, if any)
+	```
+    'username': '<FILLME>',
+    'password': '<FILLME>',
+    'contactPoint': '<FILLME>',
+    'port':'10350'
+	```
+4. Run `python -m pip install Cassandra-driver`, `python -m pip install prettytable` in a terminal to install required npm modules
+ 
+5. Run `python pyquickstart.py` in a terminal to execute it.
 
-- OS
-- Library version
-- ...
+## About the code
+The code included in this sample is intended to get you quickly started with a python program that connects to Azure Cosmos DB with the Cassandra API.
 
-### Installation
+## More information
 
-(ideally very short)
+- [Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/introduction)
+- [Python SDK](https://github.com/datastax/python-driver)
 
-- npm install [package name]
-- mvn install
-- ...
-
-### Quickstart
-(Add steps to get up and running quickly)
-
-1. git clone [repository clone url]
-2. cd [respository name]
-3. ...
-
-
-## Demo
-
-A demo app is included to show how to use the project.
-
-To run the demo, follow these steps:
-
-(Add steps to start up the demo)
-
-1.
-2.
-3.
-
-## Resources
-
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
