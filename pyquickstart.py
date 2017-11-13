@@ -15,7 +15,7 @@ def PrintTable(rows):
     print t
 
 ssl_options = {
-                  'ca_certs': 'C:\projects\connect\emulator.cer',
+                  'ca_certs': 'path\to\cert',
                   'ssl_version': ssl.PROTOCOL_TLSv1_2
               }
 
