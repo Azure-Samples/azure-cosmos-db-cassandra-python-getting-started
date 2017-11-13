@@ -1,9 +1,12 @@
-from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 import config as cfg
 from cassandra.query import BatchStatement, SimpleStatement
 from prettytable import PrettyTable
 import time
+import ssl
+import cassandra
+from cassandra.cluster import Cluster
+from cassandra.policies import *
 
 def PrintTable(rows):
     t = PrettyTable(['UserID', 'Name', 'City'])
@@ -11,9 +14,15 @@ def PrintTable(rows):
         t.add_row([r.user_id, r.user_name, r.user_bcity])
     print t
 
+ssl_options = {
+                  'ca_certs': 'C:\projects\connect\emulator.cer',
+                  'ssl_version': ssl.PROTOCOL_TLSv1_2
+              }
+
 auth_provider = PlainTextAuthProvider(
         username=cfg.config['username'], password=cfg.config['password'])
-cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider)
+cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider, ssl_options=ssl_options
+)
 session = cluster.connect()
 
 print "\Creating Keyspace"
