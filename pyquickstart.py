@@ -26,7 +26,7 @@ cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_
 session = cluster.connect()
 
 print "\nCreating Keyspace"
-session.execute('CREATE KEYSPACE IF NOT EXISTS uprofile WITH replication = {\'class\': \'SimpleStrategy\', \'replication_factor\': \'3\' }');
+session.execute('CREATE KEYSPACE IF NOT EXISTS uprofile WITH replication = {\'class\': \'NetworkTopologyStrategy\', \'datacenter\' : \'1\' }');
 print "\nCreating Table"
 session.execute('CREATE TABLE IF NOT EXISTS uprofile.user (user_id int PRIMARY KEY, user_name text, user_bcity text)');
 
