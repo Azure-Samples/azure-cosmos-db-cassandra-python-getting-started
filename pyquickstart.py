@@ -7,6 +7,8 @@ import ssl
 import cassandra
 from cassandra.cluster import Cluster
 from cassandra.policies import *
+from ssl import PROTOCOL_TLSv1_2
+from requests.utils import DEFAULT_CA_BUNDLE_PATH
 
 def PrintTable(rows):
     t = PrettyTable(['UserID', 'Name', 'City'])
@@ -14,14 +16,17 @@ def PrintTable(rows):
         t.add_row([r.user_id, r.user_name, r.user_bcity])
     print t
 
-ssl_options = {
-                  'ca_certs': 'path\to\cert',
-                  'ssl_version': ssl.PROTOCOL_TLSv1_2
-              }
+ssl_opts = {
+            'ca_certs': DEFAULT_CA_BUNDLE_PATH,
+            'ssl_version': PROTOCOL_TLSv1_2,
+            }
+
+if 'selfsigned_cert' in cfg.config:
+    ssl_opts['ca_certs'] = cfg.config['selfsigned_cert']
 
 auth_provider = PlainTextAuthProvider(
         username=cfg.config['username'], password=cfg.config['password'])
-cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider, ssl_options=ssl_options
+cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider, ssl_options=ssl_opts
 )
 session = cluster.connect()
 
