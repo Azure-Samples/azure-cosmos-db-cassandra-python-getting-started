@@ -27,8 +27,15 @@ This quick start demonstrates how to create an Azure Cosmos DB account for the C
     'contactPoint': '<FILLME>',
     'port':'10350'
 	```
-4. Run `python -m pip install Cassandra-driver`, `python -m pip install prettytable` in a terminal to install required  modules
- 
+4. Run 
+   ```
+   pip install Cassandra-driver 
+   pip install prettytable
+   pip install requests
+   pip install pyopenssl
+   ```
+   in a terminal to install required python packages
+   
 5. Run `python pyquickstart.py` in a terminal to execute it.
 
 ## About the code
