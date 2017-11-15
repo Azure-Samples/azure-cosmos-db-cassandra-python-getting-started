@@ -21,8 +21,8 @@ ssl_opts = {
             'ssl_version': PROTOCOL_TLSv1_2,
             }
 
-if 'selfsigned_cert' in cfg.config:
-    ssl_opts['ca_certs'] = cfg.config['selfsigned_cert']
+if 'certpath' in cfg.config:
+    ssl_opts['ca_certs'] = cfg.config['certpath']
 
 auth_provider = PlainTextAuthProvider(
         username=cfg.config['username'], password=cfg.config['password'])
