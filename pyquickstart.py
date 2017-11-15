@@ -25,9 +25,9 @@ cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_
 )
 session = cluster.connect()
 
-print "\Creating Keyspace"
+print "\nCreating Keyspace"
 session.execute('CREATE KEYSPACE IF NOT EXISTS uprofile WITH replication = {\'class\': \'SimpleStrategy\', \'replication_factor\': \'3\' }');
-print "\Creating Table"
+print "\nCreating Table"
 session.execute('CREATE TABLE IF NOT EXISTS uprofile.user (user_id int PRIMARY KEY, user_name text, user_bcity text)');
 
 insert_data = session.prepare("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (?,?,?)")
