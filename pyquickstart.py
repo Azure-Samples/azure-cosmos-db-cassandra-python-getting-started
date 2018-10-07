@@ -36,21 +36,14 @@ print "\nCreating Table"
 session.execute('CREATE TABLE IF NOT EXISTS uprofile.user (user_id int PRIMARY KEY, user_name text, user_bcity text)');
 
 insert_data = session.prepare("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (?,?,?)")
-batch = BatchStatement()
-batch.add(insert_data, (1, 'LyubovK', 'Dubai'))
-batch.add(insert_data, (2, 'JiriK', 'Toronto'))
-batch.add(insert_data, (3, 'IvanH', 'Mumbai'))
-batch.add(insert_data, (4, 'YuliaT', 'Seattle'))
-batch.add(insert_data, (5, 'IvanaV', 'Belgaum'))
-batch.add(insert_data, (6, 'LiliyaB', 'Seattle'))
-batch.add(insert_data, (7, 'JindrichH', 'Buenos Aires'))
-batch.add(insert_data, (8, 'AdrianaS', 'Seattle'))
-batch.add(insert_data, (9, 'JozefM', 'Seattle'))
-batch.add(insert_data, (10, 'EmmaH', 'Seattle'))
-batch.add(insert_data, (11, 'GrzegorzM', 'Seattle'))
-batch.add(insert_data, (12, 'FryderykK', 'Seattle' ))
-batch.add(insert_data, (13, 'DesislavaL', 'Seattle'))
-session.execute(batch)
+session.execute(insert_data, [1,'Lybkov','Seattle'])
+session.execute(insert_data, [2,'Doniv','Dubai'])
+session.execute(insert_data, [3,'Keviv','Chennai'])
+session.execute(insert_data, [4,'Ehtevs','Pune'])
+session.execute(insert_data, [5,'Dnivog','Belgaum'])
+session.execute(insert_data, [6,'Ateegk','Narewadi'])
+session.execute(insert_data, [7,'KannabbuS','Yamkanmardi'])
+
 
 print "\nSelecting All"
 rows = session.execute('SELECT * FROM uprofile.user')
