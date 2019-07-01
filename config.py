@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
 
-
 config = {
-         'username': '<FILLME>',
+    'username': '<FILLME>',
 
-         'password': '<FILLME>',
+    'password': '<FILLME>',
 
-         'contactPoint': '<FILLME>',
+    'contactPoint': '<FILLME>',
 
-         'port':'10350'
-         }
+    'port': '10350'
+}
