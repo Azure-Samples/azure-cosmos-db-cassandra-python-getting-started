@@ -1,7 +1,11 @@
 ---
-services: cosmos-db
-platforms: python
-author: govindk
+page_type: sample
+languages:
+- python
+products:
+- azure
+description: "Azure Cosmos DB is Microsoft's globally distributed multi-model database service."
+urlFragment: azure-cosmos-db-cassandra-python-getting-started
 ---
 
 # Accessing Cassandra API on Azure Cosmos DB using Python
