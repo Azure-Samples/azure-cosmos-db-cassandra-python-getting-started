@@ -56,12 +56,12 @@ session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) V
 print ("\nSelecting All")
 rows = session.execute('SELECT * FROM uprofile.user')
 PrintTable(rows)
-#<queryAllItems>
+#</queryAllItems>
 
 #<queryByID>
 print ("\nSelecting Id=1")
 rows = session.execute('SELECT * FROM uprofile.user where user_id=1')
 PrintTable(rows)
-#<queryByID>
+#</queryByID>
 
 cluster.shutdown()
