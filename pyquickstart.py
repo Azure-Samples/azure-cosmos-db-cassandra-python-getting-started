@@ -52,11 +52,11 @@ session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) V
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [7,'KannabbuS','Yamkanmardi'])
 #</insertData>
 
-#<queryAll>
+#<queryAllItems>
 print ("\nSelecting All")
 rows = session.execute('SELECT * FROM uprofile.user')
 PrintTable(rows)
-#<queryAll>
+#<queryAllItems>
 
 #<queryByID>
 print ("\nSelecting Id=1")
