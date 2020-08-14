@@ -16,6 +16,7 @@ def PrintTable(rows):
         t.add_row([r.user_id, r.user_name, r.user_bcity])
     print (t)
 
+#<authenticateAndConnect>
 ssl_opts = {
             'ca_certs': DEFAULT_CA_BUNDLE_PATH,
             'ssl_version': PROTOCOL_TLSv1_2,
@@ -29,12 +30,19 @@ auth_provider = PlainTextAuthProvider(
 cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider, ssl_options=ssl_opts
 )
 session = cluster.connect()
+#</authenticateAndConnect>
 
+#<createKeyspace>
 print ("\nCreating Keyspace")
 session.execute('CREATE KEYSPACE IF NOT EXISTS uprofile WITH replication = {\'class\': \'NetworkTopologyStrategy\', \'datacenter\' : \'1\' }');
+#</createKeyspace>
+
+#<createTable>
 print ("\nCreating Table")
 session.execute('CREATE TABLE IF NOT EXISTS uprofile.user (user_id int PRIMARY KEY, user_name text, user_bcity text)');
+#</createTable>
 
+#<insertData>
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [1,'Lybkov','Seattle'])
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [2,'Doniv','Dubai'])
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [3,'Keviv','Chennai'])
@@ -42,14 +50,18 @@ session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) V
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [5,'Dnivog','Belgaum'])
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [6,'Ateegk','Narewadi'])
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [7,'KannabbuS','Yamkanmardi'])
+#</insertData>
 
+#<queryAll>
 print ("\nSelecting All")
 rows = session.execute('SELECT * FROM uprofile.user')
 PrintTable(rows)
+#<queryAll>
 
- 
+#<queryByID>
 print ("\nSelecting Id=1")
 rows = session.execute('SELECT * FROM uprofile.user where user_id=1')
 PrintTable(rows)
+#<queryByID>
 
 cluster.shutdown()
