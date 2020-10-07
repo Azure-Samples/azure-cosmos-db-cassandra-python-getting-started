@@ -7,7 +7,7 @@ import ssl
 import cassandra
 from cassandra.cluster import Cluster
 from cassandra.policies import *
-from ssl import PROTOCOL_TLSv1_2
+from ssl import PROTOCOL_TLSv1_2, SSLContext, CERT_NONE
 from requests.utils import DEFAULT_CA_BUNDLE_PATH
 
 def PrintTable(rows):
@@ -17,20 +17,11 @@ def PrintTable(rows):
     print (t)
 
 #<authenticateAndConnect>
-ssl_opts = {
-            'ca_certs': DEFAULT_CA_BUNDLE_PATH,
-            'ssl_version': PROTOCOL_TLSv1_2,
-            }
-
-if 'certpath' in cfg.config:
-    ssl_opts['ca_certs'] = cfg.config['certpath']
-
-auth_provider = PlainTextAuthProvider(
-        username=cfg.config['username'], password=cfg.config['password'])
-cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider, ssl_options=ssl_opts
-)
+ssl_context = SSLContext(PROTOCOL_TLSv1_2)
+ssl_context.verify_mode = CERT_NONE
+auth_provider = PlainTextAuthProvider(username=cfg.config['username'], password=cfg.config['password'])
+cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider,ssl_context=ssl_context)
 session = cluster.connect()
-#</authenticateAndConnect>
 
 #<createKeyspace>
 print ("\nCreating Keyspace")
