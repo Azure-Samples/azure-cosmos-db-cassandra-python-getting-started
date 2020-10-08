@@ -22,6 +22,7 @@ ssl_context.verify_mode = CERT_NONE
 auth_provider = PlainTextAuthProvider(username=cfg.config['username'], password=cfg.config['password'])
 cluster = Cluster([cfg.config['contactPoint']], port = cfg.config['port'], auth_provider=auth_provider,ssl_context=ssl_context)
 session = cluster.connect()
+#</authenticateAndConnect>
 
 #<createKeyspace>
 print ("\nCreating Keyspace")
