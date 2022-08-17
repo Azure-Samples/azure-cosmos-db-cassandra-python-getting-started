@@ -16,6 +16,21 @@ def PrintTable(rows):
         t.add_row([r.user_id, r.user_name, r.user_bcity])
     print (t)
 
+def getTableCount(rows):
+    D = {}
+    for i in range(len(rows)):
+        if rows[i][0] in D:
+            D[rows[i][0]].append(rows[i][1])
+        else:
+            D[rows[i][0]]= []
+            D[rows[i][0]].append(rows[i][1])
+
+
+    s = PrettyTable(['keyspace_name', 'Num_of_Tables'])
+    for new_k, new_val in D.items():
+        s.add_row([new_k, len([item for item in new_val if item])])
+    print(s)
+
 #<authenticateAndConnect>
 ssl_context = SSLContext(PROTOCOL_TLSv1_2)
 ssl_context.verify_mode = CERT_NONE
@@ -43,6 +58,12 @@ session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) V
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [6,'Ateegk','Narewadi'])
 session.execute("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [7,'KannabbuS','Yamkanmardi'])
 #</insertData>
+
+#<GetNumberOfTables>
+print("\nTable count per keyspace")
+tableCount = session.execute("SELECT keyspace_name, table_name FROM system_schema.tables")
+getTableCount(tableCount._current_rows)
+#</GetNumberOfTables>
 
 #<queryAllItems>
 print ("\nSelecting All")
