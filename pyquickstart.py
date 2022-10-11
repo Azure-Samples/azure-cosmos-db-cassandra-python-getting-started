@@ -1,31 +1,24 @@
+"""
+Sample quickstart guide for Azure Cosmos DB Cassandra API
+"""
 from asyncio.log import logger
-from cassandra.auth import PlainTextAuthProvider
-import config as cfg
-from cassandra.query import BatchStatement, SimpleStatement
-from prettytable import PrettyTable
-import time
-import ssl
-import cassandra
+import json
 from cassandra.cluster import Cluster
-from cassandra.policies import *
 from ssl import PROTOCOL_TLSv1_2, SSLContext, CERT_NONE
-from requests.utils import DEFAULT_CA_BUNDLE_PATH
-import asyncio.log
-from asyncio.log import logger
+from cassandra.auth import PlainTextAuthProvider
+from prettytable import PrettyTable
+import config as cfg
 
-def execute_command(query):
-    try:
-        session.execute(query)
-    # TODO add exceptions for writetimeout in here?    
-    except Exception as e:
-        logger.error(e)
-
-
-def insert_command(query, values):
+def execute_command(query, values=None):
     try:
         session.execute(query, values)
-    except Exception as e:
-        logger.error("Insert fail.... %s", e)
+    except Exception as exception:
+        f = open('sample/error_code.json')
+        data = json.load(f)
+        if str(exception.error_code) in data:
+            print(data[str(exception.error_code)])
+        else:
+            logger.error(exception.error_code, exception.message)
 
 def PrintTable(rows):
     t = PrettyTable(['UserID', 'Name', 'City'])
@@ -67,13 +60,14 @@ execute_command('CREATE TABLE IF NOT EXISTS uprofile.user (user_id int PRIMARY K
 #</createTable>
 
 #<insertData>
-insert_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [1,'Lybkov','Seattle'])
-insert_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [2,'Doniv','Dubai'])
-insert_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [3,'Keviv','Chennai'])
-insert_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [4,'Ehtevs','Pune'])
-insert_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [5,'Dnivog','Belgaum'])
-insert_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [6,'Ateegk','Narewadi'])
-insert_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [7,'KannabbuS','Yamkanmardi'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [1,'Lybkov','Seattle'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [2,'Doniv','Dubai'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [3,'Keviv','Chennai'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [4,'Ehtevs','Pune'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [5,'Dnivog','Belgaum'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [6,'Ateegk','Narewadi'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [7,'KannabbuS','Yamkanmardi'])
+execute_command("INSERT INTO  uprofile.user  (user_id, user_name , user_bcity) VALUES (%s,%s,%s)", [8,'Jonas','Atlanta'])
 #</insertData>
 
 #<GetNumberOfTables>
