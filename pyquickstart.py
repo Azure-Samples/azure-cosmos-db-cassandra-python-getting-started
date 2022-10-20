@@ -9,12 +9,13 @@ from cassandra.auth import PlainTextAuthProvider
 from prettytable import PrettyTable
 import config as cfg
 
+f = open('sample/error_code.json')
+data = json.load(f)
+
 def execute_command(query, values=None):
     try:
         session.execute(query, values)
     except Exception as exception:
-        f = open('sample/error_code.json')
-        data = json.load(f)
         if str(exception.error_code) in data:
             print(data[str(exception.error_code)])
         else:
