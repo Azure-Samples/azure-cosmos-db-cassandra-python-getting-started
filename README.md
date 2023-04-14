@@ -19,7 +19,7 @@ This quick start demonstrates how to create an Azure Cosmos DB account for the C
 	* [Git](http://git-scm.com/).
     * [Python Driver](https://github.com/datastax/python-driver)
 
-1. Clone this repository using `git clone git@github.com:Azure-Samples/Azure-Samples/azure-cosmos-db-cassandra-python-getting-started.git cosmosdb`.
+1. Clone this repository using `git clone git@github.com:Azure-Samples/azure-cosmos-db-cassandra-python-getting-started.git cosmosdb`.
 
 2. Change directories to the repo using `cd cosmosdb`
 
